@@ -1,4 +1,4 @@
-# FIT3048 Project: SiteX
+# Project: SiteX
 
 Created by Team 10:
 - Daniel Ward
