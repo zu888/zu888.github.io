@@ -30,20 +30,29 @@ Default Database Credentials:
 Sample Credentials:
 
 Builder
+- Username: builder@mail.com
+- Password: 12345678
+
 - Username: dwar@student.monash.edu
 - Password: password
 
 Contractor
+- Username: contractor@mail.com
+- Password: 12345678
+
 - Username: joe@mail.com
 - Password: password
 
 On-site Worker
-- Username: walter@mail.com
+- Username: worker@mail.com
+- Password: 12345678
+
+- Username: joe@mail.com
 - Password: password
 
 On-site Worker
-- Username: william@mail.com
-- Password: password
+- Username: admin@mail.com
+- Password: 12345678
 
 # Recommended Installation Procedure
 
