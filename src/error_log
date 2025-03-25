@@ -1,0 +1,16 @@
+[05-Oct-2022 04:59:01 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/u22s1010/devroot/src/script.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/u22s1010/devroot/src/script.php on line 12
+[05-Oct-2022 05:00:01 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/u22s1010/devroot/src/script.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/u22s1010/devroot/src/script.php on line 12
+[05-Oct-2022 05:01:01 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/u22s1010/devroot/src/script.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/u22s1010/devroot/src/script.php on line 12
+[05-Oct-2022 05:02:01 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/u22s1010/devroot/src/script.php:12
+Stack trace:
+#0 {main}
+  thrown in /home/u22s1010/devroot/src/script.php on line 12

@@ -1,0 +1,194 @@
+[1mdiff --cc src/Controller/UsersController.php[m
+[1mindex e2e4e63,8a4182f..0000000[m
+[1m--- a/src/Controller/UsersController.php[m
+[1m+++ b/src/Controller/UsersController.php[m
+[36m@@@ -135,8 -133,8 +135,13 @@@[m [mclass UsersController extends AppContro[m
+  [m
+          $this->request->allowMethod(['get', 'post']);[m
+          $result = $this->Authentication->getResult();[m
+[32m++<<<<<<< HEAD[m
+[32m +//         debug($this->request->getData());[m
+[32m +//         exit;[m
+[32m++=======[m
+[32m+         // debug($this->request->getData());[m
+[32m+         // exit;[m
+[32m++>>>>>>> 4be5ee7e79ef27b58d32661c4437deb6cdce073e[m
+          if ($result && $result->isValid()) {[m
+              if ($redirect) {[m
+                  return $this->redirect($redirect);[m
+[36m@@@ -180,11 -178,12 +185,20 @@@[m
+              $role = $this->request->getData('role');[m
+              // debug($this->request->getData());[m
+              // exit;[m
+[32m++<<<<<<< HEAD[m
+[32m +//            $noCompany = FALSE;[m
+[32m +[m
+[32m +            //debug($this->request->getData('company_name'));[m
+[32m +            if ($role == 'Employee'){[m
+[32m +                $user->status = "Verified";[m
+[32m++=======[m
+[32m+             $noCompany = FALSE;[m
+[32m+             [m
+[32m+             //debug($this->request->getData('company_name'));[m
+[32m+             if ($role == 'Employee'){[m
+[32m+                 $user->status = "Verified";[m
+[32m+                 $user->company_name = "DanConstructions [3]";[m
+[32m++>>>>>>> 4be5ee7e79ef27b58d32661c4437deb6cdce073e[m
+                  $role = 'On-site Worker';[m
+                  // debug($user);[m
+                  // exit;[m
+[36m@@@ -195,26 -194,26 +209,47 @@@[m
+                  //     //return $this->redirect(['?' => ['role' => $this->request->getData('role')]]);[m
+                  // }[m
+              }[m
+[32m++<<<<<<< HEAD[m
+[32m +[m
+[32m++=======[m
+[32m+             [m
+[32m++>>>>>>> 4be5ee7e79ef27b58d32661c4437deb6cdce073e[m
+              $user->role = $role;[m
+              // debug($user);[m
+              // exit;[m
+              // debug($user->company_name);[m
+              // exit;[m
+[32m++<<<<<<< HEAD[m
+[32m +            if ($this->Users->save($user) ) {[m
+[32m +                //if($this->request->getData('company_name')){[m
+[32m +//                $company = explode('[', $user->company_name); // $this->request->getData('company_name')[m
+[32m +//                $company = explode(']', $company[1]);[m
+[32m +//                $company_id = $company[0];[m
+[32m +//                $companies = FactoryLocator::get('Table')->get('CompaniesUsers')->find();[m
+[32m +//                $companies->insert(['company_id', 'user_id', 'confirmed', 'is_company_admin'])[m
+[32m +//                    ->values([[m
+[32m +//                        'company_id' => $company_id,[m
+[32m +//                        'user_id' => $user->id,[m
+[32m +//                        'confirmed'=>1,[m
+[32m +//                        'is_company_admin'=>1[m
+[32m +//                    ])[m
+[32m +//                    ->execute();[m
+[32m++=======[m
+[32m+             if ($noCompany == FALSE && $this->Users->save($user) ) {[m
+[32m+                 //if($this->request->getData('company_name')){[m
+[32m+                     $company = explode('[', $user->company_name); // $this->request->getData('company_name')[m
+[32m+                     $company = explode(']', $company[1]);[m
+[32m+                     $company_id = $company[0];[m
+[32m+                     $companies = FactoryLocator::get('Table')->get('CompaniesUsers')->find();[m
+[32m+                     $companies->insert(['company_id', 'user_id', 'confirmed', 'is_company_admin'])[m
+[32m+                         ->values([[m
+[32m+                             'company_id' => $company_id,[m
+[32m+                             'user_id' => $user->id,[m
+[32m+                             'confirmed'=>1,[m
+[32m+                             'is_company_admin'=>1[m
+[32m+                         ])[m
+[32m+                         ->execute();[m
+[32m++>>>>>>> 4be5ee7e79ef27b58d32661c4437deb6cdce073e[m
+                  //}[m
+  [m
+                  // email verification[m
+[1mdiff --cc templates/Projects/index.php[m
+[1mindex fd1aa82,5c9f635..0000000[m
+[1m--- a/templates/Projects/index.php[m
+[1m+++ b/templates/Projects/index.php[m
+[36m@@@ -34,10 -34,12 +34,18 @@@[m [m$currentUser = $this->request->getAttri[m
+          <table class="table table-bordered" style="background-color:ghostwhite; max-width:800px">[m
+              <thead>[m
+                  <tr>[m
+[32m++<<<<<<< HEAD[m
+[32m +                    <th><?= $this->Paginator->sort('name') ?></th>[m
+[32m +                    <?php if($currentUser->role == 'Admin'){ echo '<th>Client</th>';} ?>[m
+[32m +                    <?php if($currentUser->role != 'Admin'){ echo '<th>Builder</th>';} ?>[m
+[32m++=======[m
+[32m+                     <th><?= $this->Paginator->sort('name','Porject Name') ?></th>[m
+[32m+                     <th><?= $this->Paginator->sort('project_type') ?></th>[m
+[32m+                     <?php if($currentUser->role == 'Builder'){ echo '<th>Client</th>';} ?>[m
+[32m+                     <?php if($currentUser->role != 'Builder'){ echo '<th>Builder</th>';} ?>[m
+[32m++>>>>>>> 4be5ee7e79ef27b58d32661c4437deb6cdce073e[m
+                      <th>Address</th>[m
+[32m+                     <th>Builder</th>[m
+                      <th><?= $this->Paginator->sort('start_date') ?></th>[m
+                      <th><?= $this->Paginator->sort('status') ?></th>[m
+                      <?php if($currentUser->role == 'On-site Worker'){[m
+[36m@@@ -48,13 -50,15 +56,20 @@@[m
+              </thead>[m
+              <tbody>[m
+                  <?php foreach ($projects as $project): ?>[m
+[31m-                 <tr onclick="window.location='<?= $this->Url->build(['action' => 'view', $project->id]) ?>';">[m
+[32m+                 <tr> <!--onclick="window.location='<?= $this->Url->build(['action' => 'view', $project->id]) ?>';"-->[m
+                      <td><?= h($project->name) ?></td>[m
+[31m -                    <td><?= h($project->project_type) ?></td>[m
+[31m -                    <?php if($currentUser->role == 'Builder'){ echo '<td>'.h($project->client_name).'</td>';} ?>[m
+[32m +                    <?php if($currentUser->role == 'Admin'){ echo '<td>'.h($project->client_name).'</td>';} ?>[m
+                      <?php[m
+[32m++<<<<<<< HEAD[m
+[32m +                    if($currentUser->role != 'Admin'){[m
+[32m +                        echo '<td>'.$this->Html->link(($project->builder_fname.' '.$project->builder_lname),[m
+[32m +                                ['controller' => 'Users', 'action' => 'view', $project->builder_id]).'</td>';[m
+[32m++=======[m
+[32m+                     if($currentUser->role != 'Builder'){[m
+[32m+                         // echo '<td>'.$this->Html->link(($project->builder_fname.' '.$project->builder_lname),[m
+[32m+                         //         ['controller' => 'Users', 'action' => 'view', $project->builder_id]).'</td>';[m
+[32m+                         echo '<td>'.$project->builder_fname.' '.$project->builder_lname.'</td>';[m
+[32m++>>>>>>> 4be5ee7e79ef27b58d32661c4437deb6cdce073e[m
+                      } ?>[m
+  [m
+                      <td><?= h($project->address_no.' '.$project->address_street) ?>[m
+[36m@@@ -73,7 -78,8 +89,12 @@@[m
+                          }[m
+                      }?>[m
+                      <td class="actions">[m
+[32m++<<<<<<< HEAD[m
+[32m +                        <?php if($currentUser->role == 'Admin'){ ?>[m
+[32m++=======[m
+[32m+                         <?php if($currentUser->role == 'Builder'){ ?>[m
+[32m+                             <?= $this->Html->link(__('Working Lists'), ['controller' => 'checkins', 'action' => 'checkin', '?' => ['project' => $project->id]]) ?><br/>[m
+[32m++>>>>>>> 4be5ee7e79ef27b58d32661c4437deb6cdce073e[m
+                              <?= $this->Html->link(__('View Details'), ['action' => 'view', $project->id]) ?><br/>[m
+                              <?= $this->Html->link(__('List Check-ins'), ['controller' => 'checkins', 'action' => 'index', '?' => ['project' => $project->id]]) ?><br/>[m
+                              <?= $this->Html->link(__('List Staff'), ['controller' => 'Projects', 'action' => 'staff', $project->id]) ?><br/>[m
+[1mdiff --cc templates/Users/signup.php[m
+[1mindex e5ef092,96e11b9..0000000[m
+[1m--- a/templates/Users/signup.php[m
+[1m+++ b/templates/Users/signup.php[m
+[36m@@@ -83,20 -83,20 +83,30 @@@[m [mif (!$role) { ?[m
+  <?php echo $this->fetch('script'); ?>[m
+  <?php echo $this->fetch('scriptBottom'); ?>[m
+  [m
+[31m -<script>[m
+[31m -    $(function () {[m
+[31m -        $('input').iCheck({[m
+[31m -            checkboxClass: 'icheckbox_square-blue',[m
+[31m -            radioClass: 'iradio_square-blue',[m
+[31m -            increaseArea: '20%' /* optional */[m
+[32m +    <script>[m
+[32m +        $(function () {[m
+[32m +            $('input').iCheck({[m
+[32m +                checkboxClass: 'icheckbox_square-blue',[m
+[32m +                radioClass: 'iradio_square-blue',[m
+[32m +                increaseArea: '20%' /* optional */[m
+[32m +            });[m
+          });[m
+[32m++<<<<<<< HEAD[m
+[32m +        function disableButton() {[m
+[32m +            let btn = document.getElementById('btn');[m
+[32m +            btn.disabled = true;[m
+[32m +        }[m
+[32m +    </script>[m
+[32m +    <!-- <?php if ($role == 'Employee'){ ?>[m
+[32m++=======[m
+[32m+     });[m
+[32m+     function disableButton() {[m
+[32m+         let btn = document.getElementById('btn');[m
+[32m+         btn.disabled = true;[m
+[32m+     }[m
+[32m+ </script>[m
+[32m+ <!-- <?php if ($role == 'Employee'){ ?>[m
+[32m++>>>>>>> 4be5ee7e79ef27b58d32661c4437deb6cdce073e[m
+  <script>[m
+      $(document).ready(function(){[m
+          $('input[name="company_name"]').amsifySuggestags({[m
+[1mdiff --cc webroot/uploads/qr_checkin/1/Corporate Office 142 Checkin Poster.pdf[m
+[1mindex 7ccf535,d1f1a9f..0000000[m
+Binary files differ
+[1mdiff --cc webroot/uploads/qr_induction/1/Corporate Office 142 Induction Poster.pdf[m
+[1mindex 75f57d6,6bc2255..0000000[m
+Binary files differ
